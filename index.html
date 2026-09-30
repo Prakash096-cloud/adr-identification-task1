@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR Identification Basics – Task 1</title>
+<style>
+:root{--navy:#123b73;--blue:#1764b0;--cream:#fff8d6;--ink:#172033;--muted:#5e6877;--line:#d8deea;--green:#dff5e6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:var(--ink);line-height:1.55}
+header{background:var(--navy);color:#fff;padding:28px 18px}header .wrap,main{max-width:1000px;margin:auto}
+h1{margin:0 0 8px;font-size:clamp(26px,4vw,38px)}header p{margin:0;color:#e7efff}
+main{padding:22px 16px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px;box-shadow:0 4px 15px #0d2a5010}
+.notice{background:var(--cream);border-left:5px solid #e2b92c;padding:12px 14px;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.metric{background:#f4f7fb;padding:13px;border-radius:10px}.metric strong{display:block;color:var(--navy);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.step{border-top:4px solid var(--blue);background:#f5f8ff;padding:12px;border-radius:8px}
+label{display:block;font-weight:bold;margin:12px 0 5px}select,textarea,input{width:100%;padding:10px;border:1px solid #b7c2d4;border-radius:7px;font:inherit}
+button{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer;margin-top:12px}
+#feedback{margin-top:12px;padding:12px;border-radius:8px;background:var(--green);display:none}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>ADR Identification Basics</h1><p>Task 1 · Simulated patient case analysis</p></div></header>
+<main>
+<section class="card">
+<h2>Patient Scenario</h2>
+<div class="grid">
+<div class="metric"><strong>Patient</strong>Female, 45 years</div>
+<div class="metric"><strong>Reported symptoms</strong>Rash, itching, nausea, dizziness</div>
+<div class="metric"><strong>Medication</strong>Amoxicillin</div>
+<div class="metric"><strong>Timeline</strong>Started 5 days ago; symptoms around day 2</div>
+</div>
+<p class="notice"><b>Preliminary assessment:</b> This may represent a suspected adverse drug reaction associated with amoxicillin. The association is not confirmed, and other causes must be considered.</p>
+</section>
+<section class="card">
+<h2>Timeline Review</h2>
+<div class="timeline">
+<div class="step"><b>Day 0</b><br>Amoxicillin started (reported). Verify indication, dose, and route.</div>
+<div class="step"><b>Around Day 2</b><br>Symptoms reportedly began. Confirm exact onset and progression.</div>
+<div class="step"><b>Day 5</b><br>Symptoms reportedly persist. Assess current condition and outcome.</div>
+</div>
+</section>
+<section class="card">
+<h2>Interactive Knowledge Check</h2>
+<p>Choose your answers and click “Check answers.” This is an educational exercise, not a clinical diagnostic tool.</p>
+<label for="drug">1. Which medicine is suspected in this scenario?</label>
+<select id="drug"><option value="">Choose an answer</option><option>Paracetamol</option><option>Amoxicillin</option><option>Insulin</option></select>
+<label for="timing">2. What is the key timeline observation?</label>
+<select id="timing"><option value="">Choose an answer</option><option>Symptoms began before any medicine</option><option>Symptoms were reported after starting amoxicillin</option><option>No timing information was provided</option></select>
+<label for="certainty">3. Can causality be confirmed from this information alone?</label>
+<select id="certainty"><option value="">Choose an answer</option><option>Yes, definitely confirmed</option><option>No, further clinical assessment and details are needed</option></select>
+<button onclick="checkAnswers()">Check answers</button>
+<div id="feedback" role="status"></div>
+</section>
+<section class="card">
+<h2>Audit Checklist</h2>
+<ul>
+<li>Verify medicine name, strength, dose, route, start date, and last dose.</li>
+<li>Record symptom onset, severity, duration, treatment, and outcome.</li>
+<li>Review allergy history, prior exposure, concurrent medicines, and alternative causes.</li>
+<li>Document missing information and follow local pharmacovigilance procedures.</li>
+<li>Escalate urgently if symptoms suggest a severe allergic reaction.</li>
+</ul>
+</section>
+<section class="card">
+<h2>Conclusion</h2>
+<p>Amoxicillin is the suspected medicine because symptoms were reported after treatment began. The available details are insufficient to confirm causality. A qualified healthcare professional should assess the patient and determine appropriate next steps.</p>
+<p class="notice"><b>Safety:</b> Trouble breathing, swelling of the face/lips/tongue/throat, fainting, or rapidly worsening symptoms require emergency medical care.</p>
+</section>
+</main>
+<footer>Educational demonstration · No real patient data · Not a substitute for medical advice</footer>
+<script>
+function checkAnswers(){
+ const a=document.getElementById('drug').value;
+ const b=document.getElementById('timing').value;
+ const c=document.getElementById('certainty').value;
+ const box=document.getElementById('feedback');
+ if(!a||!b||!c){box.style.display='block';box.textContent='Please answer all three questions first.';return;}
+ let score=0;
+ if(a==='Amoxicillin')score++;
+ if(b==='Symptoms were reported after starting amoxicillin')score++;
+ if(c==='No, further clinical assessment and details are needed')score++;
+ box.style.display='block';
+ box.textContent='Your score: '+score+'/3. '+(score===3?'All answers are correct. Remember: this is a suspected association, not a confirmed diagnosis.':'Review the case summary and try again.');
+}
+</script>
+</body>
+</html>
